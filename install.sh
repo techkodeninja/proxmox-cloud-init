@@ -83,3 +83,7 @@ create_template 8002 "temp-ubuntu-20-04" "ubuntu-20.04-server-cloudimg-amd64.img
 #22.04 (Jammy Jellyfish) LTS
 wget "https://cloud-images.ubuntu.com/releases/22.04/release/ubuntu-22.04-server-cloudimg-amd64.img"
 create_template 8003 "temp-ubuntu-22-04" "ubuntu-22.04-server-cloudimg-amd64.img" 
+
+#24.04 (Noble Numbat) LTS
+wget "https://cloud-images.ubuntu.com/releases/24.04/release/ubuntu-24.04-server-cloudimg-amd64.img"
+create_template 8004 "temp-ubuntu-24-04" "ubuntu-24.04-server-cloudimg-amd64.img" 
