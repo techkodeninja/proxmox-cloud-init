@@ -61,7 +61,7 @@ export ssh_keyfile=/root/.ssh/id_ed25519.pub
 export username=root
 
 #Name of your storage
-export storage=storage
+export storage=local
 
 #The images that I've found premade
 #Feel free to add your own
@@ -69,21 +69,17 @@ export storage=storage
 ## Debian
 #Bullseye (11) (oldstable)
 wget "https://cloud.debian.org/images/cloud/bullseye/latest/debian-11-genericcloud-amd64.qcow2"
-create_template 8000 "temp-debian-11" "debian-11-genericcloud-amd64.qcow2" 
+create_template 1000 "temp-debian-11" "debian-11-genericcloud-amd64.qcow2" 
 
 #Bookworm (12) (stable)
 wget "https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-genericcloud-amd64.qcow2"
-create_template 8001 "temp-debian-12" "debian-12-genericcloud-amd64.qcow2"
+create_template 1001 "temp-debian-12" "debian-12-genericcloud-amd64.qcow2"
 
 ## Ubuntu
-#20.04 (Focal Fossa) LTS
-wget "https://cloud-images.ubuntu.com/releases/focal/release/ubuntu-20.04-server-cloudimg-amd64.img"
-create_template 8002 "temp-ubuntu-20-04" "ubuntu-20.04-server-cloudimg-amd64.img" 
-
 #22.04 (Jammy Jellyfish) LTS
 wget "https://cloud-images.ubuntu.com/releases/22.04/release/ubuntu-22.04-server-cloudimg-amd64.img"
-create_template 8003 "temp-ubuntu-22-04" "ubuntu-22.04-server-cloudimg-amd64.img" 
+create_template 1002 "temp-ubuntu-22-04" "ubuntu-22.04-server-cloudimg-amd64.img" 
 
 #24.04 (Noble Numbat) LTS
 wget "https://cloud-images.ubuntu.com/releases/24.04/release/ubuntu-24.04-server-cloudimg-amd64.img"
-create_template 8004 "temp-ubuntu-24-04" "ubuntu-24.04-server-cloudimg-amd64.img" 
+create_template 1003 "temp-ubuntu-24-04" "ubuntu-24.04-server-cloudimg-amd64.img" 
