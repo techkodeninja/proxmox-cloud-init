@@ -6,11 +6,14 @@
 # vm_name
 # file name in the current directory
 function create_template() {
+
     #Print all of the configuration
     echo "Creating template $2 ($1)"
 
-    #Create new VM 
+    # ✅ Enlarge the source image itself to 64 G before import
+    qemu-img resize "$3" 64G
 
+    #Create new VM 
     #Feel free to change any of these to your liking
     qm create $1 --name $2 --ostype l26 
 
