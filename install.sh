@@ -69,20 +69,22 @@ export storage=local
 #The images that I've found premade
 #Feel free to add your own
 
-## Debian
-#Bullseye (11) (oldstable)
+# Debian 11 (Bulleye)
 wget "https://cloud.debian.org/images/cloud/bullseye/latest/debian-11-genericcloud-amd64.qcow2"
 create_template 1000 "temp-debian-11" "debian-11-genericcloud-amd64.qcow2" 
 
-#Bookworm (12) (stable)
+# Debian 12 (Bookworm)
 wget "https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-genericcloud-amd64.qcow2"
 create_template 1001 "temp-debian-12" "debian-12-genericcloud-amd64.qcow2"
 
-## Ubuntu
+# Trixie (Debian 13)
+wget https://cloud.debian.org/images/cloud/trixie/latest/debian-13-genericcloud-amd64.qcow2
+create_template 1002 "temp-debian-13" "debian-13-genericcloud-amd64.qcow2"
+
 #22.04 (Jammy Jellyfish) LTS
 wget "https://cloud-images.ubuntu.com/releases/22.04/release/ubuntu-22.04-server-cloudimg-amd64.img"
-create_template 1002 "temp-ubuntu-22-04" "ubuntu-22.04-server-cloudimg-amd64.img" 
+create_template 1003 "temp-ubuntu-22-04" "ubuntu-22.04-server-cloudimg-amd64.img" 
 
 #24.04 (Noble Numbat) LTS
 wget "https://cloud-images.ubuntu.com/releases/24.04/release/ubuntu-24.04-server-cloudimg-amd64.img"
-create_template 1003 "temp-ubuntu-24-04" "ubuntu-24.04-server-cloudimg-amd64.img" 
+create_template 1004 "temp-ubuntu-24-04" "ubuntu-24.04-server-cloudimg-amd64.img" 
