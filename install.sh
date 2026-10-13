@@ -66,6 +66,10 @@ function create_template() {
     qm set "$vmid" --sshkeys "${ssh_keyfile}"
     #qm set "$vmid" --cipassword password
 
+    #Set DNS explicitly so cloned VMs don't inherit the host's resolvers
+    #(e.g. Tailscale MagicDNS 100.100.100.100, which VMs can't reach)
+    qm set "$vmid" --nameserver "${nameservers}"
+
     #Make it a template
     qm template "$vmid"
 
@@ -83,6 +87,9 @@ username=root
 
 #Name of your storage
 storage=local
+
+#DNS servers for cloned VMs (space separated)
+nameservers="1.1.1.1 9.9.9.9"
 
 #The images that I've found premade
 #Feel free to add your own
