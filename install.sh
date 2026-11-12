@@ -1,5 +1,35 @@
 #!/bin/bash
 
+#Download an image to a local file
+#args:
+# image url
+# output file
+#If a Debian ".../latest/..." URL fails (latest/ is briefly empty while Debian
+#publishes a new build), fall back to the newest dated builds instead.
+function download_image() {
+    local url="$1"
+    local out="$2"
+
+    if wget -O "$out" "$url"; then
+        return 0
+    fi
+
+    if [[ "$url" =~ ^(https://cloud\.debian\.org/images/cloud/[a-z]+)/latest/([^/]+)\.qcow2$ ]]; then
+        local base="${BASH_REMATCH[1]}"
+        local stem="${BASH_REMATCH[2]}"
+        local build
+        echo "latest/ not available, trying the newest dated Debian builds"
+        for build in $(wget -qO- "$base/" | grep -o '[0-9]\{8\}-[0-9]\+/' | tr -d / | sort -ru | head -3); do
+            if wget -O "$out" "$base/$build/$stem-$build.qcow2"; then
+                echo "Using Debian build $build"
+                return 0
+            fi
+        done
+    fi
+
+    return 1
+}
+
 #Create template
 #args:
 # vm_id
@@ -12,9 +42,10 @@ function create_template() {
     local file
     file="$(basename "$url")"
 
-    #Skip if this VM ID is already in use (VM or template)
-    if qm status "$vmid" &>/dev/null; then
-        echo "VM ID $vmid already exists, skipping $name"
+    #Skip if this VM ID is already in use anywhere in the cluster (VM or template)
+    #qm status only sees the local node; /cluster/nextid checks every node
+    if ! pvesh get /cluster/nextid --vmid "$vmid" &>/dev/null; then
+        echo "VM ID $vmid already in use in the cluster, skipping $name"
         return 0
     fi
 
@@ -22,7 +53,7 @@ function create_template() {
     echo "Creating template $name ($vmid)"
 
     #Download the image (-O overwrites any leftover file from a failed run)
-    if ! wget -O "$file" "$url"; then
+    if ! download_image "$url" "$file"; then
         echo "Download failed for $name, skipping"
         rm -f "$file"
         return 0
